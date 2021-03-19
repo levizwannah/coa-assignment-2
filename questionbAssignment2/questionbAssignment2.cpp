@@ -14,7 +14,7 @@ string convertDecToBin(double input, bool &comment) {
     comment = false;
 
     int integerPart = (int)trunc(input);
-    double fractionPart = input - trunc(input);
+    double fractionPart = input - (int)input;
     string intOutput = "";
     string fracOutput = "";
 
@@ -37,22 +37,26 @@ string convertDecToBin(double input, bool &comment) {
         //converting the fractional part
         if (!foundFrac) {
             double product = 2 * fractionPart;
-            fracOutput += to_string(trunc(product));
-            fractionPart = product - trunc(product);
+            fracOutput += to_string((int)product);
+            fractionPart = product - (int)product;
             if (fractionPart == 0) {
                 comment = true;
                 foundFrac = true;
             }
         }
 
-        if (precisionCounter >= 5 || (foundFrac && foundWhole)) {
+        if (precisionCounter >= 4 || (foundFrac && foundWhole)) {
             string finalOutput = intOutput + ".";
-            finalOutput += (fracOutput != "") ? fracOutput : "0";
+            if (fracOutput == "") {
+                finalOutput += "0";
+            }
+            else {
+                finalOutput += fracOutput;
+            }
             return finalOutput;
         }
 
         precisionCounter++;
-        
     }
 }
 
@@ -60,7 +64,14 @@ int main()
 {
     //todo
     bool comment = false;
+
     cout << convertDecToBin(21.25, comment) << endl;
+    if (comment) {
+        cout << "Exact " << endl;
+    }
+    else {
+        cout << "Approximate " << endl;
+    }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
