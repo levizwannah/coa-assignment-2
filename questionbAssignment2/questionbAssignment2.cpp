@@ -2,7 +2,10 @@
 //
 
 #include <iostream>
+#include<random>
 #include<string>
+#include<iomanip>
+
 using namespace std;
 
 /**
@@ -45,7 +48,7 @@ string convertDecToBin(double input, bool &comment) {
             }
         }
 
-        if (precisionCounter >= 4 || (foundFrac && foundWhole)) {
+        if ((precisionCounter >= 4 || foundFrac) && foundWhole) {
             string finalOutput = intOutput + ".";
             if (fracOutput == "") {
                 finalOutput += "0";
@@ -60,18 +63,49 @@ string convertDecToBin(double input, bool &comment) {
     }
 }
 
+double roundOff(double num, int places) {
+    return ((int)(num * pow(10, places) + 0.5)) * 1.0 / pow(10.0, places);
+}
+
 int main()
 {
+    random_device rd;
+    default_random_engine eng(rd());
+    uniform_real_distribution<double> distr(0, 100);
+
     //todo
     bool comment = false;
 
-    cout << convertDecToBin(21.25, comment) << endl;
-    if (comment) {
-        cout << "Exact " << endl;
+    double decimalNum;
+    string remark;
+
+    cout << "Enter the number of numbers to convert: " << endl;
+    int numCount;
+    cin >> numCount;
+
+    cout << setw(7) << "S/No. " << setw(10) << " Decimal Number " << setw(10) << " Binary Number " << setw(7) << " Remark" << endl;
+    cout << "-------------------------------------------------------" << endl;
+
+    for (int i = 0; i < numCount; i++)
+    {
+        decimalNum = roundOff(distr(eng), 2);
+        //todo
+        bool comment = false;
+        if (comment) {
+            remark = "Exact";
+        }
+        else {
+            remark = "Approximate";
+        }
+
+        string converted = convertDecToBin(decimalNum, comment);
+
+        cout << setw(5) << i << setw(10) << decimalNum << setw(18) << converted << setw(13) << remark << endl;
     }
-    else {
-        cout << "Approximate " << endl;
-    }
+
+    //cout << convertDecToBin(decimalNum, comment) << endl;
+   
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
