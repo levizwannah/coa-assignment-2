@@ -83,6 +83,7 @@ int main()
     int numCount;
     cin >> numCount;
 
+    //TABLE
     cout << setw(7) << "S/No. " << setw(10) << " Decimal Number " << setw(10) << " Binary Number " << setw(7) << " Remark" << endl;
     cout << "-------------------------------------------------------" << endl;
 
@@ -100,6 +101,7 @@ int main()
 
         string converted = convertDecToBin(decimalNum, comment);
 
+        //TABLE OUTPUT
         cout << setw(5) << i << setw(10) << decimalNum << setw(18) << converted << setw(13) << remark << endl;
     }
 
