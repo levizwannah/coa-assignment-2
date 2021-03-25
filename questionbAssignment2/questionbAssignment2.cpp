@@ -88,17 +88,17 @@ int main()
 
     for (int i = 0; i < numCount; i++)
     {
-        decimalNum = roundOff(distr(eng), 2);
+        decimalNum = roundOff(distr(eng), 3);
         //todo
         bool comment = false;
+
+        string converted = convertDecToBin(decimalNum, comment);
         if (comment) {
             remark = "Exact";
         }
         else {
             remark = "Approximate";
         }
-
-        string converted = convertDecToBin(decimalNum, comment);
 
         cout << setw(5) << i << setw(10) << decimalNum << setw(18) << converted << setw(13) << remark << endl;
     }
