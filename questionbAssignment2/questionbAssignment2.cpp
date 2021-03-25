@@ -89,7 +89,7 @@ int main()
 
     for (int i = 0; i < numCount; i++)
     {
-        decimalNum = roundOff(distr(eng), 2);
+        decimalNum = roundOff(distr(eng), 3);
         //todo
         bool comment = false;
         
